@@ -76,15 +76,21 @@ const getBase64Image = imageProps => {
 
   const requestUrl = `https:${imageProps.baseUrl}?w=20`
 
+  console.log(`getBase64Image ${imageProps.baseUrl} - START`)
+
   // Prefer to return data sync if we already have it
   const alreadyFetched = resolvedBase64Cache.get(requestUrl)
   if (alreadyFetched) {
+    console.log(`getBase64Image ${imageProps.baseUrl} - ALREADY FETCHED`)
+
     return alreadyFetched
   }
 
   // If already in flight for this url return the same promise as the first call
   const inFlight = inFlightBase64Cache.get(requestUrl)
   if (inFlight) {
+    console.log(`getBase64Image ${imageProps.baseUrl} - ALREADY inFlight`)
+
     return inFlight
   }
 
@@ -110,16 +116,19 @@ const getBase64Image = imageProps => {
   }
 
   const loadImage = async () => {
+    console.log(`getBase64Image ${imageProps.baseUrl} - FETCHING...`)
     const imageResponse = await axios.get(requestUrl, {
       responseType: `arraybuffer`,
     })
 
+    console.log(`getBase64Image ${imageProps.baseUrl} - Converting to base64`)
     const base64 = Buffer.from(imageResponse.data, `binary`).toString(`base64`)
 
     const body = `data:image/jpeg;base64,${base64}`
 
     try {
       // TODO: against dogma, confirm whether writeFileSync is indeed slower
+      console.log(`getBase64Image ${imageProps.baseUrl} - Writing to cacheFile`)
       await fs.promises.writeFile(cacheFile, body)
       return body
     } catch (e) {
