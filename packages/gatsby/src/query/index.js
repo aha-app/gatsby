@@ -53,6 +53,11 @@ const processQueries = async (
   const queue = queryQueue.createAppropriateQueue(graphqlRunner, {
     graphqlTracing,
   })
+  console.log(
+    `Winfred Query queue processBatch queue length: ${queue.getStats()} and batchSize:${
+      queue.batchSize
+    }`
+  )
   return queryQueue.processBatch(queue, queryJobs, activity)
 }
 
