@@ -120,7 +120,7 @@ const getBase64Image = imageProps => {
       })
       const base64 = Buffer.from(imageResponse.data, `binary`).toString(`base64`)
 
-      const body = `data:image/jpeg;base64,${base64}`
+      body = `data:image/jpeg;base64,${base64}`
 
     } catch (e) {
       console.log(`Fredwin: Contentful timed out fetching image for base64 conversion: ${requestUrl}`);
