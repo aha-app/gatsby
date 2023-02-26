@@ -55,7 +55,7 @@ const downloadContentfulAssets = async gatsbyFunctions => {
   await distributeWorkload(
     assetNodes.map(node => async () => {
       let fileNodeID
-      const { contentful_id: id, node_locale: locale } = node;
+      const { contentful_id: id, node_locale: locale } = node
       const remoteDataCacheKey = `contentful-asset-${id}-${locale}`
       const cacheRemoteData = await cache.get(remoteDataCacheKey)
       if (!node.file) {
@@ -81,8 +81,6 @@ const downloadContentfulAssets = async gatsbyFunctions => {
       // If we don't have cached data, download the file
       if (!fileNodeID) {
         try {
-          console.log(`Downloading Contentful Asset Id:${id}`);
-
           const fileNode = await createRemoteFileNode({
             url,
             store,
@@ -101,7 +99,6 @@ const downloadContentfulAssets = async gatsbyFunctions => {
           }
         } catch (err) {
           // Ignore
-          console.log(`Downloading Contentful Asset Id:${id} - Ignored ERROR`);
         }
       }
 
