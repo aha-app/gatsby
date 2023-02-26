@@ -36,6 +36,7 @@ module.exports = async function contentfulFetch({
           .filter(Boolean)
           .join(` `)
       }
+      console.log(`Fredwin: Response from Contentful x-contentful-request-id: ${response.headers[`x-contentful-request-id`]}`);
 
       // Log error and throw it in an extended shape
       if (response.isAxiosError) {

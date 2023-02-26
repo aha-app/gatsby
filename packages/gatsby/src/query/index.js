@@ -54,7 +54,7 @@ const processQueries = async (
     graphqlTracing,
   })
   console.log(
-    `Winfred Query queue processBatch queue length: ${queue.getStats()} and batchSize:${
+    `Fredwin: Query queue processBatch queue length: ${queue.getStats().total} and batchSize:${
       queue.batchSize
     }`
   )
