@@ -125,7 +125,7 @@ const getBase64Image = imageProps => {
       body = `data:image/jpeg;base64,${base64}`
     } catch (e) {
       console.log(
-        `Fredwin: Contentful timed out fetching image for base64 conversion: ${requestUrl}`
+        `Fredwin: Contentful errored fetching image for base64 conversion: ${requestUrl} \n ${e} \nFalling back to transparent gif`
       )
       // transparent image fallback
       body = `data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7`
