@@ -110,13 +110,26 @@ const getBase64Image = imageProps => {
   }
 
   const loadImage = async () => {
-    const imageResponse = await axios.get(requestUrl, {
-      responseType: `arraybuffer`,
-    })
+    console.log(`Fredwin: Fetching contentful base64 image ${requestUrl}`)
 
-    const base64 = Buffer.from(imageResponse.data, `binary`).toString(`base64`)
+    let imageResponse, body
+    try {
+      imageResponse = await axios.get(requestUrl, {
+        responseType: `arraybuffer`,
+      })
 
-    const body = `data:image/jpeg;base64,${base64}`
+      const base64 = Buffer.from(imageResponse.data, `binary`).toString(
+        `base64`
+      )
+
+      body = `data:image/jpeg;base64,${base64}`
+    } catch (e) {
+      console.log(
+        `Fredwin: Contentful errored fetching image for base64 conversion: ${requestUrl} \n ${e} \nFalling back to transparent gif`
+      )
+      // transparent image fallback
+      body = `data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7`
+    }
 
     try {
       // TODO: against dogma, confirm whether writeFileSync is indeed slower

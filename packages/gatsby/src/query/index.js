@@ -53,6 +53,11 @@ const processQueries = async (
   const queue = queryQueue.createAppropriateQueue(graphqlRunner, {
     graphqlTracing,
   })
+  console.log(
+    `Fredwin: Query queue processBatch queue length: ${queue.getStats().total} and batchSize:${
+      queue.batchSize
+    }`
+  )
   return queryQueue.processBatch(queue, queryJobs, activity)
 }
 
